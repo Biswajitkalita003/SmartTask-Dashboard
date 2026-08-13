@@ -1,312 +1,345 @@
+/* =====================================
+        SMARTTASK DASHBOARD
+===================================== */
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
 const taskInput = document.getElementById("taskInput");
-const addBtn = document.getElementById("addBtn");
-const taskList = document.getElementById("taskList");
-const searchInput = document.getElementById("searchInput");
+const category = document.getElementById("category");
+const priority = document.getElementById("priority");
+const dueDate = document.getElementById("dueDate");
+
+const addTaskBtn = document.getElementById("addTask");
+
+const taskContainer = document.getElementById("taskContainer");
+
+const searchTask = document.getElementById("searchTask");
+const filterTask = document.getElementById("filterTask");
 
 const totalTasks = document.getElementById("totalTasks");
-const activeTasks = document.getElementById("activeTasks");
 const completedTasks = document.getElementById("completedTasks");
+const pendingTasks = document.getElementById("pendingTasks");
+const productivity = document.getElementById("productivity");
 
-const emptyState = document.getElementById("emptyState");
-const clearBtn = document.getElementById("clearBtn");
-const themeBtn = document.getElementById("themeBtn");
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
 
-const filters = document.querySelectorAll(".filter");
+const toast = document.getElementById("toast");
 
-let tasks = JSON.parse(localStorage.getItem("taskflowTasks")) || [];
+const clock = document.getElementById("clock");
+const currentDate = document.getElementById("currentDate");
 
-let currentFilter = "all";
+/* ==========================
+      LIVE DATE & CLOCK
+========================== */
 
+function updateClock(){
 
-// ================= ADD TASK =================
+    const now = new Date();
 
-function addTask() {
+    clock.innerHTML =
+        now.toLocaleTimeString();
 
-    const text = taskInput.value.trim();
+    currentDate.innerHTML =
+        now.toDateString();
 
-    if (text === "") {
-        alert("Please enter a task.");
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+/* ==========================
+      TOAST MESSAGE
+========================== */
+
+function showToast(message){
+
+    toast.innerHTML = message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+/* ==========================
+      SAVE LOCAL STORAGE
+========================== */
+
+function saveTasks(){
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+/* ==========================
+        ADD TASK
+========================== */
+
+addTaskBtn.addEventListener("click",()=>{
+
+    const title = taskInput.value.trim();
+
+    if(title===""){
+
+        showToast("Please enter a task.");
+
         return;
+
     }
 
-    const task = {
-        id: Date.now(),
-        text: text,
-        completed: false
+    const task={
+
+        id:Date.now(),
+
+        title:title,
+
+        category:category.value,
+
+        priority:priority.value,
+
+        dueDate:dueDate.value,
+
+        completed:false
+
     };
 
     tasks.push(task);
 
     saveTasks();
 
-    taskInput.value = "";
-
     renderTasks();
 
-    taskInput.focus();
-}
+    taskInput.value="";
+    dueDate.value="";
 
+    showToast("Task Added Successfully");
 
-// ================= DELETE TASK =================
+});
+/* ==========================
+      DASHBOARD STATS
+========================== */
 
-function deleteTask(id) {
-
-    tasks = tasks.filter(task => task.id !== id);
-
-    saveTasks();
-
-    renderTasks();
-}
-
-
-// ================= TOGGLE TASK =================
-
-function toggleTask(id) {
-
-    tasks = tasks.map(task => {
-
-        if (task.id === id) {
-            return {
-                ...task,
-                completed: !task.completed
-            };
-        }
-
-        return task;
-    });
-
-    saveTasks();
-
-    renderTasks();
-}
-
-
-// ================= SAVE =================
-
-function saveTasks() {
-
-    localStorage.setItem(
-        "taskflowTasks",
-        JSON.stringify(tasks)
-    );
-}
-
-
-// ================= FILTER =================
-
-function getFilteredTasks() {
-
-    const searchText =
-        searchInput.value.toLowerCase().trim();
-
-    return tasks.filter(task => {
-
-        const matchesSearch =
-            task.text.toLowerCase().includes(searchText);
-
-        let matchesFilter = true;
-
-        if (currentFilter === "active") {
-            matchesFilter = !task.completed;
-        }
-
-        if (currentFilter === "completed") {
-            matchesFilter = task.completed;
-        }
-
-        return matchesSearch && matchesFilter;
-    });
-}
-
-
-// ================= RENDER =================
-
-function renderTasks() {
-
-    const filteredTasks = getFilteredTasks();
-
-    taskList.innerHTML = "";
-
-    filteredTasks.forEach(task => {
-
-        const taskElement = document.createElement("div");
-
-        taskElement.className =
-            `task ${task.completed ? "completed" : ""}`;
-
-        taskElement.innerHTML = `
-            <button
-                class="check-btn"
-                aria-label="Complete task">
-            </button>
-
-            <span class="task-text">
-                ${escapeHTML(task.text)}
-            </span>
-
-            <button
-                class="delete-btn"
-                aria-label="Delete task">
-                🗑
-            </button>
-        `;
-
-
-        const checkButton =
-            taskElement.querySelector(".check-btn");
-
-        const deleteButton =
-            taskElement.querySelector(".delete-btn");
-
-
-        checkButton.addEventListener(
-            "click",
-            () => toggleTask(task.id)
-        );
-
-        deleteButton.addEventListener(
-            "click",
-            () => deleteTask(task.id)
-        );
-
-
-        taskList.appendChild(taskElement);
-    });
-
-
-    updateStats();
-
-    emptyState.style.display =
-        filteredTasks.length === 0
-            ? "block"
-            : "none";
-}
-
-
-// ================= STATISTICS =================
-
-function updateStats() {
+function updateDashboard(){
 
     const total = tasks.length;
 
-    const completed =
-        tasks.filter(task => task.completed).length;
+    const completed = tasks.filter(task=>task.completed).length;
 
-    const active = total - completed;
+    const pending = total - completed;
+
+    const percent = total===0
+        ? 0
+        : Math.round((completed/total)*100);
 
     totalTasks.textContent = total;
-    activeTasks.textContent = active;
     completedTasks.textContent = completed;
+    pendingTasks.textContent = pending;
+    productivity.textContent = percent + "%";
+
+    document.getElementById("overviewTotal").textContent = total;
+    document.getElementById("overviewCompleted").textContent = completed;
+    document.getElementById("overviewPending").textContent = pending;
+
+    progressFill.style.width = percent + "%";
+    progressText.textContent = percent + "% Completed";
+
+    updateCategoryCount();
 }
 
+/* ==========================
+      CATEGORY COUNT
+========================== */
 
-// ================= CLEAR COMPLETED =================
+function updateCategoryCount(){
 
-clearBtn.addEventListener("click", () => {
+    const categories = {
+        Study:0,
+        Work:0,
+        Personal:0,
+        Health:0
+    };
 
-    tasks = tasks.filter(
-        task => !task.completed
-    );
+    tasks.forEach(task=>{
+
+        if(categories.hasOwnProperty(task.category)){
+
+            categories[task.category]++;
+
+        }
+
+    });
+
+    document.getElementById("studyCount").textContent =
+        categories.Study + " Tasks";
+
+    document.getElementById("workCount").textContent =
+        categories.Work + " Tasks";
+
+    document.getElementById("personalCount").textContent =
+        categories.Personal + " Tasks";
+
+    document.getElementById("healthCount").textContent =
+        categories.Health + " Tasks";
+
+}
+
+/* ==========================
+      SEARCH & FILTER
+========================== */
+
+searchTask.addEventListener("keyup",renderTasks);
+
+filterTask.addEventListener("change",renderTasks);
+
+/* ==========================
+      DARK MODE
+========================== */
+
+const themeToggle =
+document.getElementById("themeToggle");
+
+const savedTheme =
+localStorage.getItem("theme");
+
+if(savedTheme==="dark"){
+
+    document.body.classList.add("dark");
+
+}
+
+themeToggle.addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+
+        localStorage.setItem("theme","dark");
+
+        showToast("Dark Mode Enabled");
+
+    }else{
+
+        localStorage.setItem("theme","light");
+
+        showToast("Light Mode Enabled");
+
+    }
+
+});
+
+/* ==========================
+      CLEAR COMPLETED
+========================== */
+
+const clearCompleted =
+document.getElementById("clearCompleted");
+
+clearCompleted.addEventListener("click",()=>{
+
+    tasks = tasks.filter(task=>!task.completed);
 
     saveTasks();
 
     renderTasks();
+
+    showToast("Completed Tasks Cleared");
+
 });
 
+/* ==========================
+      RESET DASHBOARD
+========================== */
 
-// ================= FILTER BUTTONS =================
+const resetApp =
+document.getElementById("resetApp");
 
-filters.forEach(button => {
+resetApp.addEventListener("click",()=>{
 
-    button.addEventListener("click", () => {
+    if(confirm("Reset all tasks?")){
 
-        filters.forEach(btn =>
-            btn.classList.remove("active")
-        );
+        tasks = [];
 
-        button.classList.add("active");
-
-        currentFilter =
-            button.dataset.filter;
+        saveTasks();
 
         renderTasks();
-    });
-});
 
+        showToast("Dashboard Reset");
 
-// ================= SEARCH =================
-
-searchInput.addEventListener(
-    "input",
-    renderTasks
-);
-
-
-// ================= ADD BUTTON =================
-
-addBtn.addEventListener(
-    "click",
-    addTask
-);
-
-
-// ================= ENTER KEY =================
-
-taskInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Enter") {
-            addTask();
-        }
     }
-);
 
-
-// ================= DARK MODE =================
-
-themeBtn.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark");
-
-    const darkMode =
-        document.body.classList.contains("dark");
-
-    themeBtn.textContent =
-        darkMode ? "☀️" : "🌙";
-
-    localStorage.setItem(
-        "taskflowDarkMode",
-        darkMode
-    );
 });
 
+/* ==========================
+      ENTER KEY
+========================== */
 
-// ================= LOAD THEME =================
+taskInput.addEventListener("keypress",(e)=>{
 
-const savedTheme =
-    localStorage.getItem("taskflowDarkMode");
+    if(e.key==="Enter"){
 
-if (savedTheme === "true") {
+        addTaskBtn.click();
 
-    document.body.classList.add("dark");
+    }
 
-    themeBtn.textContent = "☀️";
-}
+});
 
+/* ==========================
+      HERO BUTTON
+========================== */
 
-// ================= SECURITY =================
+const heroButton =
+document.getElementById("newTaskBtn");
 
-function escapeHTML(text) {
+heroButton.addEventListener("click",()=>{
 
-    const div = document.createElement("div");
+    taskInput.focus();
 
-    div.textContent = text;
+    window.scrollTo({
 
-    return div.innerHTML;
-}
+        top:taskInput.offsetTop-120,
 
+        behavior:"smooth"
 
-// ================= INITIAL LOAD =================
+    });
+
+});
+
+/* ==========================
+      SIDEBAR ACTIVE LINK
+========================== */
+
+const navLinks =
+document.querySelectorAll(".menu li");
+
+navLinks.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        navLinks.forEach(item=>{
+
+            item.classList.remove("active");
+
+        });
+
+        link.classList.add("active");
+
+    });
+
+});
+
+/* ==========================
+      INITIAL LOAD
+========================== */
 
 renderTasks();
+
+showToast("Welcome to SmartTask Dashboard!");

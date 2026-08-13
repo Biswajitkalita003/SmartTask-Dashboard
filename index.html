@@ -5,512 +5,484 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-        content="TaskFlow Pro - A modern responsive task management application">
+    <title>SmartTask Dashboard</title>
 
-    <title>TaskFlow Pro | Task Manager</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- ===================== SIDEBAR ===================== -->
 
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
 
-        <div class="brand">
-            <div class="brand-icon">✓</div>
-            <div>
-                <h2>TaskFlow</h2>
-                <span>PRO</span>
-            </div>
+        <div class="logo">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+            <h2>SmartTask</h2>
+
         </div>
 
-        <nav class="navigation">
+        <ul class="menu">
 
-            <p class="nav-title">MAIN MENU</p>
+            <li class="active">
+                <a href="#dashboard">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
 
-            <button class="nav-item active">
-                <span>⌂</span>
-                Dashboard
-            </button>
+            <li>
+                <a href="#tasks">
+                    <i class="fa-solid fa-list-check"></i>
+                    My Tasks
+                </a>
+            </li>
 
-            <button class="nav-item">
-                <span>✓</span>
-                My Tasks
-                <b id="navTaskCount">0</b>
-            </button>
+            <li>
+                <a href="#categories">
+                    <i class="fa-solid fa-folder"></i>
+                    Categories
+                </a>
+            </li>
 
-            <button class="nav-item">
-                <span>◷</span>
-                Upcoming
-            </button>
+            <li>
+                <a href="#statistics">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Statistics
+                </a>
+            </li>
 
-            <button class="nav-item">
-                <span>▦</span>
-                Categories
-            </button>
+            <li>
+                <a href="#settings">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
 
-            <button class="nav-item">
-                <span>▥</span>
-                Statistics
-            </button>
-
-            <p class="nav-title">WORKSPACE</p>
-
-            <button class="nav-item">
-                <span>⚙</span>
-                Settings
-            </button>
-
-        </nav>
-
-        <div class="sidebar-quote">
-            <p>
-                "The secret of getting ahead is getting started."
-            </p>
-
-            <span>— Mark Twain</span>
-        </div>
-
-        <div class="sidebar-bottom">
-            <span>Built with</span>
-            <strong>HTML • CSS • JS</strong>
-        </div>
+        </ul>
 
     </aside>
 
-
-    <!-- ================= MAIN CONTENT ================= -->
+    <!-- ===================== MAIN ===================== -->
 
     <main class="main-content">
 
-        <!-- TOP BAR -->
+        <!-- HEADER -->
 
         <header class="topbar">
 
-            <button class="menu-btn" id="menuBtn">
-                ☰
-            </button>
+            <div>
 
-            <div class="topbar-search">
-                <span>⌕</span>
+                <h1>Hello, Biswajit 👋</h1>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search tasks..."
-                >
+                <p>Manage your daily work smarter.</p>
+
             </div>
 
-            <div class="top-actions">
+            <div class="top-right">
 
-                <button class="icon-btn" id="themeBtn">
-                    ☾
-                </button>
+                <span id="currentDate"></span>
 
-                <button class="icon-btn notification">
-                    ♧
-                    <small>1</small>
-                </button>
-
-                <div class="avatar">
-                    B
-                </div>
+                <span id="clock"></span>
 
             </div>
 
         </header>
 
+        <!-- HERO -->
 
-        <!-- ================= DASHBOARD ================= -->
+        <section class="hero" id="dashboard">
 
-        <div class="dashboard">
+            <div class="hero-left">
 
-            <!-- Welcome -->
+                <h2>
+                    Stay Organized,
+                    Stay Productive.
+                </h2>
 
-            <section class="welcome-section">
+                <p>
 
-                <div>
-                    <p class="small-label">YOUR DASHBOARD</p>
+                    Manage your work, study and personal
+                    life in one beautiful dashboard.
 
-                    <h1>
-                        Good morning, <span>Biswajit!</span> 👋
-                    </h1>
+                </p>
 
-                    <p>
-                        Here's what's happening with your tasks today.
+                <button id="newTaskBtn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    New Task
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- DASHBOARD CARDS -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-list"></i>
+
+                <h3>Total Tasks</h3>
+
+                <h2 id="totalTasks">0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h3>Completed</h3>
+
+                <h2 id="completedTasks">0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-hourglass-half"></i>
+
+                <h3>Pending</h3>
+
+                <h2 id="pendingTasks">0</h2>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <h3>Productivity</h3>
+
+                <h2 id="productivity">0%</h2>
+
+            </div>
+
+        </section>
+
+        <!-- ADD TASK -->
+
+        <section class="task-form" id="tasks">
+
+            <h2>
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add New Task
+
+            </h2>
+
+            <div class="form-grid">
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter task title">
+
+                <select id="category">
+
+                    <option value="Study">Study</option>
+
+                    <option value="Work">Work</option>
+
+                    <option value="Personal">Personal</option>
+
+                    <option value="Health">Health</option>
+
+                </select>
+
+                <select id="priority">
+
+                    <option value="High">High</option>
+
+                    <option value="Medium">Medium</option>
+
+                    <option value="Low">Low</option>
+
+                </select>
+
+                <input
+                    type="date"
+                    id="dueDate">
+
+                <button id="addTask">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Task
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- SEARCH -->
+
+        <section class="search-section">
+
+            <input
+                type="text"
+                id="searchTask"
+                placeholder="Search Task...">
+
+            <select id="filterTask">
+
+                <option value="all">
+                    All
+                </option>
+
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="pending">
+                    Pending
+                </option>
+
+            </select>
+
+        </section>
+
+        <!-- TASK LIST -->
+
+        <section class="task-list">
+
+            <h2>
+
+                My Tasks
+
+            </h2>
+
+            <div id="taskContainer">
+
+                <!-- JavaScript will create cards here -->
+
+            </div>
+
+        </section>
+                <!-- ===================== CATEGORIES ===================== -->
+
+        <section class="categories-section" id="categories">
+
+            <div class="section-header">
+
+                <h2>
+                    <i class="fa-solid fa-folder-open"></i>
+                    Categories
+                </h2>
+
+            </div>
+
+            <div class="category-grid">
+
+                <div class="category-card study">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h3>Study</h3>
+                    <span id="studyCount">0 Tasks</span>
+                </div>
+
+                <div class="category-card work">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>Work</h3>
+                    <span id="workCount">0 Tasks</span>
+                </div>
+
+                <div class="category-card personal">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Personal</h3>
+                    <span id="personalCount">0 Tasks</span>
+                </div>
+
+                <div class="category-card health">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    <h3>Health</h3>
+                    <span id="healthCount">0 Tasks</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ===================== STATISTICS ===================== -->
+
+        <section class="statistics-section" id="statistics">
+
+            <div class="section-header">
+
+                <h2>
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                    Productivity Statistics
+
+                </h2>
+
+            </div>
+
+            <div class="stats-container">
+
+                <div class="progress-card">
+
+                    <h3>Task Completion</h3>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            id="progressFill">
+
+                        </div>
+
+                    </div>
+
+                    <p id="progressText">
+
+                        0% Completed
+
                     </p>
-                </div>
-
-                <div class="date-box">
-                    <span>Today</span>
-                    <strong id="currentDate">--</strong>
-                </div>
-
-            </section>
-
-
-            <!-- ================= STAT CARDS ================= -->
-
-            <section class="stats-grid">
-
-                <div class="stat-card blue">
-
-                    <div class="stat-content">
-                        <span>Total Tasks</span>
-                        <strong id="totalTasks">0</strong>
-                        <small>All your tasks</small>
-                    </div>
-
-                    <div class="stat-icon">
-                        ▣
-                    </div>
 
                 </div>
 
+                <div class="overview-card">
 
-                <div class="stat-card green">
+                    <h3>Overview</h3>
 
-                    <div class="stat-content">
-                        <span>Completed</span>
-                        <strong id="completedTasks">0</strong>
-                        <small>Tasks finished</small>
-                    </div>
+                    <ul>
 
-                    <div class="stat-icon">
-                        ✓
-                    </div>
+                        <li>
 
-                </div>
+                            <span>Total Tasks</span>
 
+                            <strong id="overviewTotal">
 
-                <div class="stat-card orange">
+                                0
 
-                    <div class="stat-content">
-                        <span>In Progress</span>
-                        <strong id="activeTasks">0</strong>
-                        <small>Keep going!</small>
-                    </div>
+                            </strong>
 
-                    <div class="stat-icon">
-                        ◷
-                    </div>
+                        </li>
 
-                </div>
+                        <li>
 
+                            <span>Completed</span>
 
-                <div class="stat-card purple">
+                            <strong id="overviewCompleted">
 
-                    <div class="stat-content">
-                        <span>Productivity</span>
-                        <strong id="productivity">0%</strong>
-                        <small>Your progress</small>
-                    </div>
+                                0
 
-                    <div class="stat-icon">
-                        ↗
-                    </div>
+                            </strong>
 
-                </div>
+                        </li>
 
-            </section>
+                        <li>
 
+                            <span>Pending</span>
 
-            <!-- ================= ADD TASK ================= -->
+                            <strong id="overviewPending">
 
-            <section class="add-task-card">
+                                0
 
-                <div class="section-heading">
-                    <div>
-                        <p class="small-label">QUICK ACTION</p>
-                        <h2>Add New Task</h2>
-                    </div>
-                </div>
+                            </strong>
 
-                <div class="task-form">
+                        </li>
 
-                    <input
-                        type="text"
-                        id="taskInput"
-                        placeholder="What needs to be done?"
-                        maxlength="100"
-                    >
-
-                    <select id="categoryInput">
-
-                        <option value="Work">
-                            Work
-                        </option>
-
-                        <option value="Study">
-                            Study
-                        </option>
-
-                        <option value="Personal">
-                            Personal
-                        </option>
-
-                        <option value="Health">
-                            Health
-                        </option>
-
-                    </select>
-
-
-                    <select id="priorityInput">
-
-                        <option value="High">
-                            High
-                        </option>
-
-                        <option value="Medium" selected>
-                            Medium
-                        </option>
-
-                        <option value="Low">
-                            Low
-                        </option>
-
-                    </select>
-
-
-                    <button id="addTaskBtn">
-                        + Add Task
-                    </button>
+                    </ul>
 
                 </div>
 
-            </section>
+            </div>
 
+        </section>
 
-            <!-- ================= CONTENT GRID ================= -->
+        <!-- ===================== SETTINGS ===================== -->
 
-            <section class="content-grid">
+        <section class="settings-section" id="settings">
 
+            <div class="section-header">
 
-                <!-- TASK SECTION -->
+                <h2>
 
-                <div class="tasks-panel">
+                    <i class="fa-solid fa-gear"></i>
 
-                    <div class="panel-header">
+                    Settings
 
-                        <div>
-                            <p class="small-label">YOUR WORK</p>
-                            <h2>My Tasks</h2>
-                        </div>
+                </h2>
 
-                        <div class="task-filters">
+            </div>
 
-                            <button
-                                class="filter active"
-                                data-filter="all">
-                                All
-                            </button>
+            <div class="settings-grid">
 
-                            <button
-                                class="filter"
-                                data-filter="active">
-                                Active
-                            </button>
+                <button id="themeToggle">
 
-                            <button
-                                class="filter"
-                                data-filter="completed">
-                                Completed
-                            </button>
+                    <i class="fa-solid fa-moon"></i>
 
-                        </div>
+                    Toggle Dark Mode
 
-                    </div>
+                </button>
 
+                <button id="clearCompleted">
 
-                    <div id="taskList" class="task-list"></div>
+                    <i class="fa-solid fa-trash"></i>
 
+                    Clear Completed
 
-                    <div
-                        id="emptyState"
-                        class="empty-state">
+                </button>
 
-                        <div class="empty-icon">
-                            ✓
-                        </div>
+                <button id="resetApp">
 
-                        <h3>No tasks found</h3>
+                    <i class="fa-solid fa-rotate-left"></i>
 
-                        <p>
-                            Add a new task to get started.
-                        </p>
+                    Reset Dashboard
 
-                    </div>
+                </button>
 
+            </div>
 
-                    <div class="task-footer">
-
-                        <span>
-                            <strong id="remainingTasks">0</strong>
-                            tasks remaining
-                        </span>
-
-                        <button id="clearCompleted">
-                            Clear Completed
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= RIGHT SIDEBAR ================= -->
-
-                <aside class="right-panel">
-
-
-                    <!-- Categories -->
-
-                    <div class="side-card">
-
-                        <div class="side-heading">
-                            <h3>Categories</h3>
-
-                            <button>
-                                +
-                            </button>
-                        </div>
-
-
-                        <div class="category-item">
-
-                            <span class="category-name">
-                                <i class="dot work"></i>
-                                Work
-                            </span>
-
-                            <b id="workCount">0</b>
-
-                        </div>
-
-
-                        <div class="category-item">
-
-                            <span class="category-name">
-                                <i class="dot study"></i>
-                                Study
-                            </span>
-
-                            <b id="studyCount">0</b>
-
-                        </div>
-
-
-                        <div class="category-item">
-
-                            <span class="category-name">
-                                <i class="dot personal"></i>
-                                Personal
-                            </span>
-
-                            <b id="personalCount">0</b>
-
-                        </div>
-
-
-                        <div class="category-item">
-
-                            <span class="category-name">
-                                <i class="dot health"></i>
-                                Health
-                            </span>
-
-                            <b id="healthCount">0</b>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Productivity -->
-
-                    <div class="side-card productivity-card">
-
-                        <div class="side-heading">
-                            <h3>Productivity</h3>
-                        </div>
-
-                        <div class="progress-circle">
-
-                            <div>
-                                <strong id="circleProgress">
-                                    0%
-                                </strong>
-                                <span>Complete</span>
-                            </div>
-
-                        </div>
-
-                        <h3 class="progress-title">
-                            Keep going!
-                        </h3>
-
-                        <p>
-                            Complete your tasks to improve
-                            your productivity score.
-                        </p>
-
-                    </div>
-
-
-                    <!-- Upcoming -->
-
-                    <div class="side-card">
-
-                        <div class="side-heading">
-
-                            <h3>Quick Stats</h3>
-
-                        </div>
-
-                        <div class="quick-stat">
-                            <span>High Priority</span>
-                            <strong id="highPriority">0</strong>
-                        </div>
-
-                        <div class="quick-stat">
-                            <span>Medium Priority</span>
-                            <strong id="mediumPriority">0</strong>
-                        </div>
-
-                        <div class="quick-stat">
-                            <span>Low Priority</span>
-                            <strong id="lowPriority">0</strong>
-                        </div>
-
-                    </div>
-
-                </aside>
-
-            </section>
-
-        </div>
-
-
-        <!-- FOOTER -->
-
-        <footer>
-
-            <p>
-                © 2026 TaskFlow Pro
-            </p>
-
-            <span>
-                Built using HTML, CSS & JavaScript
-            </span>
-
-        </footer>
+        </section>
 
     </main>
 
+    <!-- ===================== TOAST ===================== -->
+
+    <div
+        id="toast"
+        class="toast">
+
+        Task Added Successfully
+
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+
+    <footer>
+
+        <p>
+
+            © 2026 SmartTask Dashboard |
+            Built with ❤️ using HTML, CSS & JavaScript
+
+        </p>
+
+    </footer>
 
     <script src="script.js"></script>
 
