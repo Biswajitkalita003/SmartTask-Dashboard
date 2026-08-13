@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="TaskFlow Pro - A modern responsive task management application">
+
+    <title>TaskFlow Pro | Task Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">✓</div>
+            <div>
+                <h2>TaskFlow</h2>
+                <span>PRO</span>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <p class="nav-title">MAIN MENU</p>
+
+            <button class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item">
+                <span>✓</span>
+                My Tasks
+                <b id="navTaskCount">0</b>
+            </button>
+
+            <button class="nav-item">
+                <span>◷</span>
+                Upcoming
+            </button>
+
+            <button class="nav-item">
+                <span>▦</span>
+                Categories
+            </button>
+
+            <button class="nav-item">
+                <span>▥</span>
+                Statistics
+            </button>
+
+            <p class="nav-title">WORKSPACE</p>
+
+            <button class="nav-item">
+                <span>⚙</span>
+                Settings
+            </button>
+
+        </nav>
+
+        <div class="sidebar-quote">
+            <p>
+                "The secret of getting ahead is getting started."
+            </p>
+
+            <span>— Mark Twain</span>
+        </div>
+
+        <div class="sidebar-bottom">
+            <span>Built with</span>
+            <strong>HTML • CSS • JS</strong>
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <button class="menu-btn" id="menuBtn">
+                ☰
+            </button>
+
+            <div class="topbar-search">
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search tasks..."
+                >
+            </div>
+
+            <div class="top-actions">
+
+                <button class="icon-btn" id="themeBtn">
+                    ☾
+                </button>
+
+                <button class="icon-btn notification">
+                    ♧
+                    <small>1</small>
+                </button>
+
+                <div class="avatar">
+                    B
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <div class="dashboard">
+
+            <!-- Welcome -->
+
+            <section class="welcome-section">
+
+                <div>
+                    <p class="small-label">YOUR DASHBOARD</p>
+
+                    <h1>
+                        Good morning, <span>Biswajit!</span> 👋
+                    </h1>
+
+                    <p>
+                        Here's what's happening with your tasks today.
+                    </p>
+                </div>
+
+                <div class="date-box">
+                    <span>Today</span>
+                    <strong id="currentDate">--</strong>
+                </div>
+
+            </section>
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <section class="stats-grid">
+
+                <div class="stat-card blue">
+
+                    <div class="stat-content">
+                        <span>Total Tasks</span>
+                        <strong id="totalTasks">0</strong>
+                        <small>All your tasks</small>
+                    </div>
+
+                    <div class="stat-icon">
+                        ▣
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-content">
+                        <span>Completed</span>
+                        <strong id="completedTasks">0</strong>
+                        <small>Tasks finished</small>
+                    </div>
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-content">
+                        <span>In Progress</span>
+                        <strong id="activeTasks">0</strong>
+                        <small>Keep going!</small>
+                    </div>
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card purple">
+
+                    <div class="stat-content">
+                        <span>Productivity</span>
+                        <strong id="productivity">0%</strong>
+                        <small>Your progress</small>
+                    </div>
+
+                    <div class="stat-icon">
+                        ↗
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ADD TASK ================= -->
+
+            <section class="add-task-card">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="small-label">QUICK ACTION</p>
+                        <h2>Add New Task</h2>
+                    </div>
+                </div>
+
+                <div class="task-form">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="What needs to be done?"
+                        maxlength="100"
+                    >
+
+                    <select id="categoryInput">
+
+                        <option value="Work">
+                            Work
+                        </option>
+
+                        <option value="Study">
+                            Study
+                        </option>
+
+                        <option value="Personal">
+                            Personal
+                        </option>
+
+                        <option value="Health">
+                            Health
+                        </option>
+
+                    </select>
+
+
+                    <select id="priorityInput">
+
+                        <option value="High">
+                            High
+                        </option>
+
+                        <option value="Medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="Low">
+                            Low
+                        </option>
+
+                    </select>
+
+
+                    <button id="addTaskBtn">
+                        + Add Task
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CONTENT GRID ================= -->
+
+            <section class="content-grid">
+
+
+                <!-- TASK SECTION -->
+
+                <div class="tasks-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <p class="small-label">YOUR WORK</p>
+                            <h2>My Tasks</h2>
+                        </div>
+
+                        <div class="task-filters">
+
+                            <button
+                                class="filter active"
+                                data-filter="all">
+                                All
+                            </button>
+
+                            <button
+                                class="filter"
+                                data-filter="active">
+                                Active
+                            </button>
+
+                            <button
+                                class="filter"
+                                data-filter="completed">
+                                Completed
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="taskList" class="task-list"></div>
+
+
+                    <div
+                        id="emptyState"
+                        class="empty-state">
+
+                        <div class="empty-icon">
+                            ✓
+                        </div>
+
+                        <h3>No tasks found</h3>
+
+                        <p>
+                            Add a new task to get started.
+                        </p>
+
+                    </div>
+
+
+                    <div class="task-footer">
+
+                        <span>
+                            <strong id="remainingTasks">0</strong>
+                            tasks remaining
+                        </span>
+
+                        <button id="clearCompleted">
+                            Clear Completed
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= RIGHT SIDEBAR ================= -->
+
+                <aside class="right-panel">
+
+
+                    <!-- Categories -->
+
+                    <div class="side-card">
+
+                        <div class="side-heading">
+                            <h3>Categories</h3>
+
+                            <button>
+                                +
+                            </button>
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <span class="category-name">
+                                <i class="dot work"></i>
+                                Work
+                            </span>
+
+                            <b id="workCount">0</b>
+
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <span class="category-name">
+                                <i class="dot study"></i>
+                                Study
+                            </span>
+
+                            <b id="studyCount">0</b>
+
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <span class="category-name">
+                                <i class="dot personal"></i>
+                                Personal
+                            </span>
+
+                            <b id="personalCount">0</b>
+
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <span class="category-name">
+                                <i class="dot health"></i>
+                                Health
+                            </span>
+
+                            <b id="healthCount">0</b>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Productivity -->
+
+                    <div class="side-card productivity-card">
+
+                        <div class="side-heading">
+                            <h3>Productivity</h3>
+                        </div>
+
+                        <div class="progress-circle">
+
+                            <div>
+                                <strong id="circleProgress">
+                                    0%
+                                </strong>
+                                <span>Complete</span>
+                            </div>
+
+                        </div>
+
+                        <h3 class="progress-title">
+                            Keep going!
+                        </h3>
+
+                        <p>
+                            Complete your tasks to improve
+                            your productivity score.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Upcoming -->
+
+                    <div class="side-card">
+
+                        <div class="side-heading">
+
+                            <h3>Quick Stats</h3>
+
+                        </div>
+
+                        <div class="quick-stat">
+                            <span>High Priority</span>
+                            <strong id="highPriority">0</strong>
+                        </div>
+
+                        <div class="quick-stat">
+                            <span>Medium Priority</span>
+                            <strong id="mediumPriority">0</strong>
+                        </div>
+
+                        <div class="quick-stat">
+                            <span>Low Priority</span>
+                            <strong id="lowPriority">0</strong>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </section>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <p>
+                © 2026 TaskFlow Pro
+            </p>
+
+            <span>
+                Built using HTML, CSS & JavaScript
+            </span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
